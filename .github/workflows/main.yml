@@ -1,0 +1,44 @@
+name: Main
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+jobs:
+  build-dart-sdk:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 2.x
+      uses: actions/setup-python@v2
+      with:
+        python-version: '2.x'
+    - name: Prepare Env
+      run: |
+        sudo apt-get install g++-aarch64-linux-gnu
+        sudo apt-get install g++-multilib
+        sudo apt-get install zip
+    - name: Get Resource
+      run: |
+        git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git
+        export PATH="$PATH:$PWD/depot_tools"
+        mkdir flutter-engine
+        echo 'solutions = [
+        {
+         "managed": False,
+         "name": "src/flutter",
+         "url": "https://github.com/lycstar/engine.git",
+         "custom_deps": {},
+         "deps_file": "DEPS",
+         "safesync_url": "",
+        },
+        ]' >> flutter-engine/.gclient
+        cd flutter-engine
+        gclient sync
+        ls
+    - name: Build Engine
+      run: |
+        export PATH="$PATH:$PWD/depot_tools"
+        cd flutter-engine/
+        ls
