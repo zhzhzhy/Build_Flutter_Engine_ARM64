@@ -42,14 +42,20 @@ jobs:
         ninja -C out/android_release_arm64
         ./flutter/tools/gn --target-os android --android-cpu arm64 --runtime-mode debug
         ninja -C out/android_debug_arm64
+        ./flutter/tools/gn --target-os linux --linux-cpu arm64 --runtime-mode release
+        ninja -C out/linux_release_arm64
+        ./flutter/tools/gn --target-os linux --linux-cpu arm64 --runtime-mode debug
+        ninja -C out/linux_debug_arm64
     - name: Zip Engine
       run: |
         cd flutter-engine/src
         zip -q -r android_release_arm64.zip out/android_release_arm64
         zip -q -r android_debug_arm64.zip out/android_debug_arm64
+        zip -q -r linux_release_arm64.zip out/android_release_arm64
+        zip -q -r linux_debug_arm64.zip out/android_debug_arm64
     - name: Release Engine
       uses: ncipollo/release-action@v1.5.0
       with:
-        artifacts: "flutter-engine/src/android_release_arm64.zip,flutter-engine/src/android_debug_arm64.zip"
+        artifacts: "flutter-engine/src/*.zip"
         tag: "arm64"
         token: ${{ secrets.RElEASE_TOKEN }}
