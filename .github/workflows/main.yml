@@ -1,12 +1,7 @@
 name: Main
-on:
-  # Triggers the workflow on push or pull request events but only for the main branch
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+on: [push]
 jobs:
-  build-dart-sdk:
+  build-flutter-engine:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -16,6 +11,7 @@ jobs:
         python-version: '2.x'
     - name: Prepare Env
       run: |
+        sudo apt-get update
         sudo apt-get install g++-aarch64-linux-gnu
         sudo apt-get install g++-multilib
         sudo apt-get install zip
@@ -28,7 +24,7 @@ jobs:
         {
          "managed": False,
          "name": "src/flutter",
-         "url": "https://github.com/lycstar/engine.git",
+         "url": "https://github.com/flutter/engine",
          "custom_deps": {},
          "deps_file": "DEPS",
          "safesync_url": "",
@@ -36,9 +32,24 @@ jobs:
         ]' >> flutter-engine/.gclient
         cd flutter-engine
         gclient sync
-        ls
     - name: Build Engine
       run: |
         export PATH="$PATH:$PWD/depot_tools"
-        cd flutter-engine/
-        ls
+        cd flutter-engine/src
+        ls flutter/
+        ls flutter/tools
+        ./flutter/tools/gn --target-os linux --linux-cpu arm64 --runtime-mode release
+        ninja -C out/linux_release_arm64
+        ./flutter/tools/gn --target-os linux --linux-cpu arm64 --runtime-mode debug
+        ninja -C out/linux_debug_arm64
+    - name: Zip Engine
+      run: |
+        cd flutter-engine/src
+        zip -q -r linux_release_arm64.zip out/linux_release_arm64
+        zip -q -r linux_debug_arm64.zip out/linux_debug_arm64
+    - name: Release Engine
+      uses: ncipollo/release-action@v1.5.0
+      with:
+        artifacts: "flutter-engine/src/*.zip"
+        tag: "linux_arm64"
+        token: ${{ secrets.RELEASE_TOKEN }}
