@@ -16,6 +16,7 @@ jobs:
         python-version: '2.x'
     - name: Prepare Env
       run: |
+        sudo apt-get update
         sudo apt-get install g++-aarch64-linux-gnu
         sudo apt-get install g++-multilib
         sudo apt-get install zip
