@@ -37,9 +37,13 @@ jobs:
         ]' >> flutter-engine/.gclient
         cd flutter-engine
         gclient sync
-        ls
     - name: Build Engine
       run: |
         export PATH="$PATH:$PWD/depot_tools"
-        cd flutter-engine/
-        ls
+        cd flutter-engine/src
+        ls flutter/
+        ls flutter/tools
+        ./flutter/tools/gn --target-os linux --linux-cpu arm64 --runtime-mode release
+        ninja -C out/linux_release_arm64
+        ./flutter/tools/gn --target-os linux --linux-cpu arm64 --runtime-mode debug
+        ninja -C out/linux_debug_arm64
