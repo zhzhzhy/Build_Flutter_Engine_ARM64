@@ -57,5 +57,5 @@ jobs:
       uses: ncipollo/release-action@v1.5.0
       with:
         artifacts: "flutter-engine/src/*.zip"
-        tag: "arm64"
+        tag: "android_arm64"
         token: ${{ secrets.RElEASE_TOKEN }}
