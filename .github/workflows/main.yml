@@ -49,7 +49,7 @@ jobs:
     - name: Zip Engine
       run: |
         cd flutter-engine/src
-        #zip -q -r android_release_arm64.zip out/android_release_arm64
+        # zip -q -r android_release_arm64.zip out/android_release_arm64
        # zip -q -r android_debug_arm64.zip out/android_debug_arm64
         zip -q -r linux_release_arm64.zip out/linux_release_arm64
         zip -q -r linux_debug_arm64.zip out/linux_debug_arm64
