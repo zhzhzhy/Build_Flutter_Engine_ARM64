@@ -6,17 +6,17 @@ jobs:
     steps:
     - name: Maximize build space
       uses: easimon/maximize-build-space@v4
-        with:
+      with:
           root-reserve-mb: 512
           swap-size-mb: 1024
           remove-dotnet: 'true'
           remove-haskell: 'true'
           remove-android: 'true'
     - name: Checkout
-        uses: actions/checkout@v2
+      uses: actions/checkout@v2
 
     - name: Echo Free space
-        run: |
+      run: |
           echo "Free space:"
           df -h
     - uses: actions/checkout@v2
