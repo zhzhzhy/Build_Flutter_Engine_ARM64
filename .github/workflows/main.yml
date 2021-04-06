@@ -24,7 +24,7 @@ jobs:
         {
          "managed": False,
          "name": "src/flutter",
-         "url": "https://github.com/lycstar/engine.git",
+         "url": "https://github.com/flutter/engine",
          "custom_deps": {},
          "deps_file": "DEPS",
          "safesync_url": "",
