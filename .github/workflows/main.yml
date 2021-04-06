@@ -15,7 +15,7 @@ jobs:
     - name: Checkout
         uses: actions/checkout@v2
 
-    - name: Build
+    - name: Echo Free space
         run: |
           echo "Free space:"
           df -h
