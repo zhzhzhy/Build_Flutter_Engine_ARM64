@@ -1,4 +1,5 @@
 # Build_Flutter_Engine_ARM64
+[![Main](https://github.com/zhzhzhy/Build_Flutter_Engine_ARM64/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/zhzhzhy/Build_Flutter_Engine_ARM64/actions/workflows/main.yml)
 
 Build flutter engine release for Linux ARM64 devices
 
