@@ -81,3 +81,4 @@ jobs:
         artifacts: "flutter-engine/src/*.zip"
         tag: "linux_arm64"
         token: ${{ secrets.RELEASE_TOKEN }}
+        allowUpdates: true
