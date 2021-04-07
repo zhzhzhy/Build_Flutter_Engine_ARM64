@@ -76,11 +76,11 @@ jobs:
         zip -q -r linux_release_arm64.zip out/linux_release_arm64
         zip -q -r linux_debug_arm64.zip out/linux_debug_arm64
     - name: Get current date
-        id: date
-        run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
+      id: date
+      run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
     - name: Test with environment variables
-        run: echo $TAG_NAME - $RELEASE_TIME
-        env:
+      run: echo $TAG_NAME - $RELEASE_TIME
+      env:
           TAG_NAME: Linux-arm64
           RELEASE_TIME: ${{ steps.date.outputs.date }}
     - name: Release Engine
