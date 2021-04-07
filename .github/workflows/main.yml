@@ -76,7 +76,7 @@ jobs:
         zip -q -r linux_release_arm64.zip out/linux_release_arm64
         zip -q -r linux_debug_arm64.zip out/linux_debug_arm64
     - name: Release Engine
-      uses: ncipollo/release-action@v1.5.0
+      uses: ncipollo/release-action@v1
       with:
         artifacts: "flutter-engine/src/*.zip"
         tag: "linux_arm64"
