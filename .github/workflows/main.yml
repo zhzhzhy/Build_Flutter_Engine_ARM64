@@ -64,9 +64,9 @@ jobs:
         cd flutter-engine/src
         ls flutter/
         ls flutter/tools
-        ./flutter/tools/gn --embedder-for-target --full-dart-sdk --target-os linux --linux-cpu arm --arm-float-abi hard --target-triple arm-linux-gnueabihf --no-goma --runtime-mode release
+        ./flutter/tools/gn --embedder-for-target --full-dart-sdk --target-os linux --linux-cpu arm --arm-float-abi hard --target-triple arm-linux-gnueabihf --target-sysroot /usr/bin --target-toolchain /usr/bin --no-goma --runtime-mode release
         ninja -C out/linux_release_arm
-        ./flutter/tools/gn --embedder-for-target --full-dart-sdk --target-os linux --linux-cpu arm --arm-float-abi hard --target-triple arm-linux-gnueabihf --no-goma --runtime-mode debug
+        ./flutter/tools/gn --embedder-for-target --full-dart-sdk --target-os linux --linux-cpu arm --arm-float-abi hard --target-triple arm-linux-gnueabihf --target-sysroot /usr/bin --target-toolchain /usr/bin --no-goma --runtime-mode debug
         ninja -C out/linux_debug_arm
         ./flutter/tools/gn --target-os linux --linux-cpu arm64 --no-goma --runtime-mode release
         ninja -C out/linux_release_arm64
