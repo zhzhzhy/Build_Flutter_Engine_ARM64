@@ -27,12 +27,10 @@ jobs:
           remove-android: 'true'
     - name: Checkout
       uses: actions/checkout@v2
-
     - name: Echo Free space
       run: |
           echo "Free space:"
           df -h
-    - uses: actions/checkout@v2
     - name: Set up Python 2.x
       uses: actions/setup-python@v2
       with:
@@ -40,8 +38,8 @@ jobs:
     - name: Prepare Env
       run: |
         sudo apt-get update
-        sudo apt-get install g++-aarch64-linux-gnu g++-arm-linux-gnueabihf
-        sudo apt-get install g++-multilib
+        sudo apt-get install g++ g++-aarch64-linux-gnu g++-arm-linux-gnueabihf gcc-arm-linux-gnueabihf
+        sudo apt-get install g++-multilib gcc-multilib gcc clang build-essential autoconf libtool cmake pkg-config
         sudo apt-get install zip
     - name: Get Resource
       run: |
@@ -66,17 +64,18 @@ jobs:
         cd flutter-engine/src
         ls flutter/
         ls flutter/tools
-        ./flutter/tools/gn --target-os linux --linux-cpu arm64 --runtime-mode release
-        ninja -C out/linux_release_arm64
-        ./flutter/tools/gn --target-os linux --linux-cpu arm64 --runtime-mode debug
-        ninja -C out/linux_debug_arm64
-        ./flutter/tools/gn --target-os linux --linux-cpu arm --runtime-mode release
+        ./flutter/tools/gn --target-os linux --linux-cpu arm --no-goma --runtime-mode release
         ninja -C out/linux_release_arm
-        ./flutter/tools/gn --target-os linux --linux-cpu arm --runtime-mode debug
+        ./flutter/tools/gn --target-os linux --linux-cpu arm --no-goma --runtime-mode debug
         ninja -C out/linux_debug_arm
+        ./flutter/tools/gn --target-os linux --linux-cpu arm64 --no-goma --runtime-mode release
+        ninja -C out/linux_release_arm64
+        ./flutter/tools/gn --target-os linux --linux-cpu arm64 --no-goma --runtime-mode debug
+        ninja -C out/linux_debug_arm64
     - name: Zip Engine
       run: |
         cd flutter-engine/src/out
+        ls
         zip -q -r linux_release_arm64.zip linux_release_arm64
         zip -q -r linux_debug_arm64.zip linux_debug_arm64
         zip -q -r linux_release_arm.zip linux_release_arm
