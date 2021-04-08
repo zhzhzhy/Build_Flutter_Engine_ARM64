@@ -38,8 +38,8 @@ jobs:
     - name: Prepare Env
       run: |
         sudo apt-get update
-        sudo apt-get install g++ g++-aarch64-linux-gnu g++-arm-linux-gnueabihf gcc-arm-linux-gnueabihf
-        sudo apt-get install g++-multilib gcc-multilib gcc clang build-essential autoconf libtool cmake pkg-config
+        sudo apt-get install g++-aarch64-linux-gnu g++-arm-linux-gnueabihf
+        sudo apt-get install g++-multilib gcc-multilib
         sudo apt-get install zip
     - name: Get Resource
       run: |
