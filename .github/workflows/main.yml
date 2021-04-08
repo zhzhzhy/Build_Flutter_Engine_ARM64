@@ -27,12 +27,10 @@ jobs:
           remove-android: 'true'
     - name: Checkout
       uses: actions/checkout@v2
-
     - name: Echo Free space
       run: |
           echo "Free space:"
           df -h
-    - uses: actions/checkout@v2
     - name: Set up Python 2.x
       uses: actions/setup-python@v2
       with:
@@ -66,14 +64,14 @@ jobs:
         cd flutter-engine/src
         ls flutter/
         ls flutter/tools
-        ./flutter/tools/gn --target-os linux --linux-cpu arm64 --no-goma --runtime-mode release
-        ninja -C out/linux_release_arm64
-        ./flutter/tools/gn --target-os linux --linux-cpu arm64 --no-goma --runtime-mode debug
-        ninja -C out/linux_debug_arm64
         ./flutter/tools/gn --target-os linux --linux-cpu arm --no-goma --runtime-mode release
         ninja -C out/linux_release_arm
         ./flutter/tools/gn --target-os linux --linux-cpu arm --no-goma --runtime-mode debug
         ninja -C out/linux_debug_arm
+        ./flutter/tools/gn --target-os linux --linux-cpu arm64 --no-goma --runtime-mode release
+        ninja -C out/linux_release_arm64
+        ./flutter/tools/gn --target-os linux --linux-cpu arm64 --no-goma --runtime-mode debug
+        ninja -C out/linux_debug_arm64
     - name: Zip Engine
       run: |
         cd flutter-engine/src/out
