@@ -65,7 +65,7 @@ jobs:
         ls flutter/
         ls flutter/tools
         echo "------------"
-        find / |xargs grep -ri "recipe-sysroot"
+        tree / -L 3
         echo "------------"
         ./flutter/tools/gn --embedder-for-target --full-dart-sdk --target-os linux --linux-cpu arm --arm-float-abi hard --target-triple arm-linux-gnueabihf --target-sysroot /usr/arm-linux-gnueabihf --no-goma --runtime-mode release
         ninja -C out/linux_release_arm
