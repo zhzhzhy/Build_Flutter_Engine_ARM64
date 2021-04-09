@@ -64,10 +64,6 @@ jobs:
         cd flutter-engine/src
         ls flutter/
         ls flutter/tools
-        ./flutter/tools/gn --target-os linux --linux-cpu arm --no-goma --runtime-mode release
-        ninja -C out/linux_release_arm
-        ./flutter/tools/gn --target-os linux --linux-cpu arm --no-goma --runtime-mode debug
-        ninja -C out/linux_debug_arm
         ./flutter/tools/gn --target-os linux --linux-cpu arm64 --no-goma --runtime-mode release
         ninja -C out/linux_release_arm64
         ./flutter/tools/gn --target-os linux --linux-cpu arm64 --no-goma --runtime-mode debug
@@ -78,20 +74,18 @@ jobs:
         ls
         zip -q -r linux_release_arm64.zip linux_release_arm64
         zip -q -r linux_debug_arm64.zip linux_debug_arm64
-        zip -q -r linux_release_arm.zip linux_release_arm
-        zip -q -r linux_debug_arm.zip linux_debug_arm
     - name: Get current date
       id: date
       run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
     - name: Test with environment variables
       run: echo $TAG_NAME - $RELEASE_TIME
       env:
-          TAG_NAME: Linux-ARM
+          TAG_NAME: Linux-ARM64
           RELEASE_TIME: ${{ steps.date.outputs.date }}
     - name: Release Engine
       uses: ncipollo/release-action@v1
       with:
         artifacts: "flutter-engine/src/out/*.zip"
-        tag: Linux-ARM-${{ steps.date.outputs.date }}
+        tag: Linux-ARM64-${{ steps.date.outputs.date }}
         token: ${{ secrets.RELEASE_TOKEN }}
         allowUpdates: true
